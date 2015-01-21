@@ -1,86 +1,382 @@
-*comment Copyright 2010 by Dan Fabulich.
-*comment 
-*comment Dan Fabulich licenses this file to you under the
-*comment ChoiceScript License, Version 1.0 (the "License"); you may
-*comment not use this file except in compliance with the License. 
-*comment You may obtain a copy of the License at
-*comment 
-*comment  http://www.choiceofgames.com/LICENSE-1.0.txt
-*comment 
-*comment See the License for the specific language governing
-*comment permissions and limitations under the License.
-*comment 
-*comment Unless required by applicable law or agreed to in writing,
-*comment software distributed under the License is distributed on an
-*comment "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-*comment either express or implied.
+*comment startupdocument reflectie
 
-*title My First ChoiceScript Game
-*author Anonymous
+*title A peculiar assignment
+*author Remko van der Pluijm
 *scene_list
-  startup
-  animal
-  variables
-  gosub
-  ending
-  death
+	startup
+	ending
+	death
 
-*create leadership 50
-*create strength 50
+*comment globale variabelen. Naam en geslacht is duidelijk
+*create naam ""
+*create geslacht ""
+*comment Studierichting en studienum zijn om het verhaal iets aan te passen voor de betreffende studie
+*create studie_richting ""
+*create studienum 0
+*comment waarde 1 en 2 zijn om de conflicterende waarden waar het design fiction om draait, premisse de premisse van de narrative game
+*create waarde1 ""
+*create waarde2 ""
+*create premisse ""
+*comment gamification meet in hoeverre ze in staat zijn om te bepalen of iets een gamified methode is 
+*create gamification 0
+*comment gamusage is de tekstversie voor commentaar op de laatste pagina
+*create gamusage ""
+*comment design_fiction meet of ze weten wat design fiction doet
+*create design_fiction 0
+*comment dfusage is het  tekstuele commentaar voor op de eindpagina
+*create dfusage ""
+*comment narrative meet of ze meer op games of op vertelkracht uit zijn voor het beïnvloeden van gedrag
+*create narrative 50
+*comment career meet in hoeverre ze bereid zijn om ver te gaan voor hun carrière ten koste van alles. Dit is tegelijkertijd de relatie tot de baas. Natuurlijk is dit sterk vereenvoudigd, maar dat mag voor deze mini-game wel.
+*create career 50
+*comment creative freedom met in hoeverre ze in staat zijn om voor zichzelf te blijven handelen of onder de druk bezwijken (puur voor het verhaal)
+*create creative_freedom 50
+*comment positie is de huidige positie binnenin het bedrijf (junior / medior / senior / lead)
+*create positie "junior"
+*comment relatie_collega de relatie met andere collega's. Daarnaast is er een variabele die aangeeft welk type collega 
+*comment gekozen is. Variabele van 1 tot 4:
+*comment 1: Twee vriendelijke collega's die niet al te veel ervan snappen.
+*comment 2: Een vervelende collega, die weet hoe gamification werkt  (alleen met creativity hoger)
+*comment 3: twee collega's die sterk sociaal geëngageerd zijn (alleen mogelijk met career hoger dan creativity) --> df
+*comment 4: collega als muze
+*create relatie_collega 50
+*create type_collega 0
+*create comptype "big"
+*create endtext ""
 
-Welcome to your very first ChoiceScript game!
+*image Designfiction.jpg
 
-Copyright 2010 by Dan Fabulich.
+It 's the beginning of a new year as you enter the doorsteps of the company you became familiar with the past few years. Crossing this particular doorstep on the first day of the year always seems to remind you of the first steps of your professional career. Already five years ago, you graduated from the art academy. Excited, you started your career as a(n) ...
 
-Dan Fabulich licenses this file to you under the
-ChoiceScript License, Version 1.0 (the "License"); you may
-not use this file except in compliance with the License. 
-You may obtain a copy of the License at
+*label study
+*choice
+	#Advertiser
+		*if studie_richting =  ""
+			*set studie_richting "Advertising"
+		*set studienum 1
+		*goto enthusiasm_study
+	#Animator
+		*if studie_richting =  ""
+			*set studie_richting "Animation"
+		*set studienum 2
+		*goto enthusiasm_study
+	#Audiovisual Designer
+		*if studie_richting =  ""
+			*set studie_richting "Audiovisual Design"
+		*set studienum 2
+		*goto enthusiasm_study
+	#Fashion designer
+		*if studie_richting =  ""
+			*set studie_richting "Fashion"
+		*set studienum 3
+		*goto enthusiasm_study
+	#Fine artist
+		*if studie_richting =  ""
+			*set studie_richting "Fine Art"
+		*set studienum 7
+		*goto enthusiasm_study
+	#Fine art and design teacher 
+		*if studie_richting =  ""
+			*set studie_richting "Fine Art and Design teacher training"
+		*set studienum 4
+		*goto enthusiasm_study
+	#Graphic Designer
+		*if studie_richting =  ""
+			*set studie_richting "Graphic Design"
+		*set studienum 2
+		*goto enthusiasm_study
+	#Illustrator
+		*if studie_richting =  ""
+			*set studie_richting "Illustration"
+		*set studienum 2
+		*goto enthusiasm_study
+	#Leasure Manager
+		*if studie_richting =  ""
+			*set studie_richting "Leasure Management"
+		*set studienum 5
+		*goto enthusiasm_study
+	#Lifestyle designer
+		*if studie_richting =  ""
+			*set studie_richting "Lifestyle"
+		*set studienum 5
+		*goto enthusiasm_study
+	#Photographer
+		*if studie_richting =  ""
+			*set studie_richting "Photography"
+		*set studienum 6
+		*goto enthusiasm_study
+	#Product designer
+		*if studie_richting =  ""
+			*set studie_richting "Product design"
+		*set studienum 5
+		*goto enthusiasm_study
+	#Architect or other type of Spatial designer
+		*if studie_richting =  ""
+			*set studie_richting "Spatial design"
+		*set studienum 5
+		*goto enthusiasm_study
+	*disable_reuse #Other...
+		Okay... What then would be the name of your study?
+		*input_text studie_richting
+		Could you compare your study to the studies available at the Willem de Kooning Academy?
+		*goto study
 
-*link http://www.choiceofgames.com/LICENSE-1.0.txt
 
-See the License for the specific language governing
-permissions and limitations under the License.
+*label enthusiasm_study
+Cool! Well, studying ${studie_richting} really gave you the opportunity to shine. Come to think of it, what did you think about your study?
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-either express or implied.
-
-*page_break
-
-Your majesty, your people are starving in the streets, and threaten revolution.
-Our enemies to the west are weak, but they threaten soon to invade.  What will you do?
+*temp rightstudychoice false
 
 *choice
-  #Make pre-emptive war on the western lands.
-    If you can seize their territory, your kingdom will flourish.  But your army's
-    morale is low and the kingdom's armory is empty.  How will you win the war?
-    *choice
-      #Drive the peasants like slaves; if we work hard enough, we'll win.
-        Unfortunately, morale doesn't work like that.  Your army soon turns against you
-        and the kingdom falls to the western barbarians.
-        *finish
-      #Appoint charismatic knights and give them land, peasants, and resources.
-        Your majesty's people are eminently resourceful.  Your knights win the day,
-        but take care: they may soon demand a convention of parliament.
-        *finish
-      #Steal food and weapons from the enemy in the dead of night.
-        A cunning plan.  Soon your army is a match for the westerners; they choose
-        not to invade for now, but how long can your majesty postpone the inevitable?
-        *finish
-  #Beat swords to plowshares and trade food to the westerners for protection.
-    The westerners have you at the point of a sword.  They demand unfair terms
-    from you.
-    *choice
-      #Accept the terms for now.
-        Eventually, the barbarian westerners conquer you anyway, destroying their
-        bread basket, and the entire region starves.
-        *finish
-      #Threaten to salt our fields if they don't offer better terms.
-        They blink.  Your majesty gets a fair price for wheat.
-        *finish
-  #Abdicate the throne. I have clearly mismanaged this kingdom!
-    The kingdom descends into chaos, but you manage to escape with your own hide.
-    Perhaps in time you can return to restore order to this fair land.
-    *finish
+	#I loved it! I was already certain it would give me the opportunity to get the coolest jobs!
+		*set career %+20
+		*set rightstudychoice true
+		A good career... was that worth your time at the Academy? 
+		*goto jobreason
+	#I loved the fact that I can practice my passion!
+		*set rightstudychoice true
+		*set creative_freedom %+20
+		Great! And is this job the thing you hoped for? Or was the job the [i]real[/i] reason you decided to follow this study? 
+		*goto jobreason
+	#It was ok, I guess... 
+		*set creative_freedom %-20
+		That doesn't sound as enthusiastic as one might expect from a student at the Academy. In my experience, most of the students at the Academy are quite motivated for their study... What made your experience different?
+		*fake_choice
+			#It just doesn't fit my general interests.
+			#I don't like the general method of assessment.
+			#Classes are dull.
+		That's a pity...
+		*goto jobreason
+		
+*label jobreason
+If you would have had the opportunity to quit your study and go directly into business, would that have satisfied you?
+*choice
+	#Sure... A job that pays well always pays off, doesn't it?
+		I guess... You really are fond of your career aren't you?
+		*set creative_freedom %-10
+		*set career %+20
+		*set rightstudychoice false
+		*goto application
+	#Hmm... Nah, I'm having a ball at the Academy! Going out with friends, being studentish...
+		Fun is really important!
+		*set career %-10
+		*set relatie_collega %+20
+		*goto application
+	#Not at all! The Academy learned me valuable skills!
+		It sure does!
+		*set creative_freedom %+20
+		*set career %-10
+		*goto application
+	#No way! At the Academy, I learned to be a responsible and creative ${studie_richting}er!
+		Wow... You surely are a socially responsible one, aren't you?
+		*set creative_freedom %+30
+		*set career %-20
+		*goto application
+
+*label application
+You were a bit nervous at your first job interview. Can you remember what you wore that day?
+*temp titel
+*choice
+	#A suit with a shirt, as a man should wear to a job interview.
+		What kind of suit?
+		*fake_choice
+			#A blue, Italian style suit.
+			#A black, standard suit.
+			#A grey suit with chalk lines.
+			#A golden coloured suit.
+		And what was the colour of your shirt?
+		*fake_choice
+			#Black, tight fit.
+			#Loosely, but with a creative motive.
+			#The one I designed myself.
+		Very nice choice. Naturally, you were hired!
+		*gosub choiceman
+		*goto first_years
+	#A baggy shirt and trousers. If a guy can't wear what he wants to wear, they shouldn't hire you.
+		Some companies might disagree, but apparently your portfolio spoke for itself. You were hired!
+		*gosub choiceman
+		*goto first_years
+	#A pencil skirt with a tight shirt. For a job interview, a girl has to look her best.
+		How many buttons were loose at your interview
+		*fake_choice
+			#No cleavage!
+			#Little cleavage...
+			#A lot of cleavage.
+			#Depends on whether the interviewer is a man or a woman.
+		Interesting choice. Apparently, it worked out well, since you got hired!
+		*gosub choicewoman
+		*goto first_years
+	#Trousers and a tight shirt. As a second generation feminist, I cannot fail with that.
+		Don't know whether it was because of the trousers, but you were hired!
+		*gosub choicewoman
+		*goto first_years
+	*selectable_if(studienum = 3) #My own design, naturally!
+		Of course. Not a better way to impress. Well then, which type of clothing did you make?
+			*choice
+				#A completely new take on a woman's dress. It should be clear I'm not to be messed with. I'm a badd ass girl!
+					Clearly, they were impressed! You were hired!
+					*gosub choicewoman
+					*goto first_years
+				#A traditional take on a woman's dress. It should be clear that I uphold traditional designer values. While I'm willing to experiment between boundaries
+					
+
+
+*label first_years
+*temp introtext "In your first years, you started as a " & positie
+
+*if studienum = 1
+	*set introtext  introtext & " advertiser at a "
+	*goto comptyp
+*elseif (studienum = 2) or (studienum = 5)
+	*set introtext  introtext & " designer at a " 
+	*goto comptyp
+*elseif studienum = 3
+	*set introtext  introtext & " fashion designer at a "
+	*goto comptyp
+*elseif studienum = 4
+	*set introtext  introtext & " educational advisor at a "
+	*goto comptyp
+*elseif studienum = 6
+	*set introtext  introtext & " photographer at a "
+	*goto comptyp
+*elseif studienum = 7
+	*set introtext  introtext & " creative artist at a "
+	*goto comptyp
+	
+*label comptyp
+	
+*if career > creative_freedom
+	*set introtext  introtext & "big company, mainly involved with big jobs for the large multinationals. From Nike and Philip Morris to Shell and Elsevier, they all worked with either you or one of your co-workers. You worked your ass of during the first few years, as you were one of the many employees out there trying to be at the top. Naturally, you were one of the few able to make a real success out of your career. Luckily, Sean, your boss, clearly saw your potential and you quickly rose to fame. The company is called ..."
+	*set comptype  "big"
+	*goto firstyears
+*elseif relatie_collega > career
+	*set introtext  introtext & "medium company, their market focussed on smaller companies. Most of their work involves small but quite fun jobs. While you're job isn't quite a nine to fiver, you still have quite reasonable working schedules and the possibility to go on vacation. While on your job, you have quite a good relation with Sean, your boss, and quite happily stay for the Friday afternoon drink. The company is called ..."
+	*set comptype  "mid"
+	*goto firstyears
+*else
+	*set introtext  introtext & "small company, mostly focussed on social issues and blue companies. You do have to work hard, but at least you get to work on a meaningful job. You have a great time with your fellow designers and often meet each other in the weekends. The company is called ..."
+	*set comptype  "small"
+	*goto firstyears
+
+*label firstyears
+${introtext} 
+
+*temp cmpname
+*input_text cmpname
+
+As you enter your office, you still ponder about the past years and what they brought you. You were quite young back then, fresh from the academy and not as used to working at ${cmpname}. Naturally, you wanted to get a better in ${studie_richting}, but perhaps you had other thoughts about what work should be about. After all, as the saying goes, do you [i]work to live[/i] or rather [i]live to work[/i]? In other words, what was your focus during your first years?
+*choice
+	#Getting better at my job. If I am a better employee, I'll promote not matter what. I followed courses, even in my own time, just to get better.
+		*set creative_freedom %+30
+		*set career %+10
+		*set relatie_collega %-10
+		While this choice made you a much better creative pioneer, you weren't as successful in networking and getting to know your fellow employees better. You were, however, able to get a special assignment due to your highly esteemed creative possibilities.
+		*goto specialassignment 
+	#Networking with the boss and higher managers, while still being on the lookout for better career opportunities. It's all about knowing the right people after all. Skills are only secondary, if you'd ask me.
+		*set creative_freedom %-10
+		*set career %+50
+		*set relatie_collega %-20
+		Fully focussed on getting to know the right people, you score high points with Sean, your boss. You actually arranged to be a regular on his weekly Wednesday night's poker game. Since Sean also recognizes the importance of networking, this brings you in contact with a lot of inspiring CEOs of other companies in the creative industry.	
+		*line_break 
+		On your left, there's Matt Sanders, the CEO and founder of [i]Blue Creations[/i], a small venture specialised in creative sustainable solutions. He is a small, Caucasian man with a solemn look on his face.
+		*line_break 
+		Next to him sits Jeff Slim, a middle-aged man with a small goatee. According to Sean, he is the Lead Designer of Rooklyn Industries, a successful design firm aimed at governmental institutes such as universities and ministries and employing a diverse type of employee, from designers to philosophers, from psychologists to IT-nerds.	
+		*line_break 
+		Then comes Sean, your boss. He seems quite focussed on his current game and doesn't pay much attention to the chitchat you are having with the other guests. 
+		*line_break 
+		Last, there is Giles Boung, CEO of Olivyg, one of last years winner of the Effies in advertising. A rather large business man who seems quite full of himself. A giant in advertising, but he esures you'll get your share of your own profession also. He can use all the creative minds he can get to satisfy his customers. 
+		*line_break 
+		*line_break 
+		Over the course of the evening, you get to chat with all of the other guests and they seem to be more than politely interested in your work. If you are willing, you can choose to switch your career. 
+		*choice
+			#Nah, I'm fine with my current choice.
+				Apparently, Sean was eavesdropping on you, since afterwards, he asks you to stay for a bit. [i]Well, well, well... You've got yourself quite some offers there. That wasn't what I expected to happen, honestly. Have you already decided what you're going to do?[/i]
+				*fake_choice
+					#I like the challenges of my job...
+					#I like my colleagues, so I'm gonna stay.
+					#If I get a raise, I would be even more motivated to stay...
+				He only smiles...
+				*set endtext "${endtext} You decided to work at ${cmpname}, a ${comptype} company. *linebreak "
+				*set career %+20
+				*goto abc
+			*selectable_if(comptype != "small") #I would like to join Matt in his quest for a better society. While the choices I made were focussed on getting a good career, I think this was necessary to get a good reputation which will enable me to make a difference in my new, socially responsible job.
+				Well, that's certainly a change of pace. Since this will be a completely different type of job, you'll be challenged to use your creative mind in quite a different fashion.
+				*line_break
+				[i]Welcome on board! You're clearly the ${geslacht} I'm looking for. These are hard times for the socially responsible enterpreneur, so we can use everyone we can get on board, especially such a crafty individual such as yourself![/i]  
+				*set comptype "small"
+				*set cmpname "Blue Creations"
+				*set endtext "${endtext} You decided to change your occupation to a small socially responsible firm called Blue Creations. *linebreak"
+				*goto abc
+			*selectable_if(comptype = "small") #Jeff Slim is my man! A medium company would be perfect for me in my current career. The government can ensure a steady flow of work and I'll get social, juridical and organisational issues to design.
+				Steady as she goes... Jeff's handshake is welcome, but serious. It's clear this man wants to get the best out of you, which he'll also expect from you. [i]I hope you don't expect a 9 to 5 job...[/i], he laughs as you both walk to your vehicles after your poker night."
+				*set comptype "mid"
+				*set cmpname "Rooklyn Industries"
+				*set endtext "${endtext} You decided to start working at a medium company called Rooklyn Industries, targeting governmental institutes. *linebreak"
+				*goto abc
+			*selectable_if(comptype != "big") #Let's go for the real job around here! While I have flourished in the short period I was working at ${cmpname}, I think I learned enough to deal with the big issues in my field of expertise. I opt for Giles Boung."
+				*set comptype "big"
+				*set cmpname "Olivyg"
+				*goto abc
+
+
+*label abc 
+				
+
+	
+*label inputname
+Name:
+*input_text naam
+*set introtext  "${titel} ${naam}"
+
+*choice
+	#
+		*set type_collega 1
+		*goto naamlabel2
+
+	#
+		*set type_collega 2
+		*goto naamlabel2
+	#
+		*set type_collega 3
+		*goto naamlabel2
+	#
+		*set type_collega 4
+		*goto naamlabel2
+		
+
+*label naamlabel2
+		
+*set introtext  introtext & ", ${studie_richting}, ${positie}"	
+
+*if type_collega = 1
+
+	*goto originele_designfiction
+*elseif type_collega = 2
+
+	*goto originele_designfiction
+*elseif type_collega = 3
+
+	*goto originele_designfiction
+*else
+
+	*goto originele_designfiction
+
+
+
+
+
+
+
+*label originele_designfiction
+
+*finish
+
+*label choiceman
+*set geslacht "man"
+*set titel "Mr."
+*return
+
+*label choicewoman
+*set geslacht "woman"
+*set titel "Mrs."
+*return
