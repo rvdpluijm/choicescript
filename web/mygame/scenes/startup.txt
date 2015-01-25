@@ -44,7 +44,7 @@
 *create comptype "big"
 *create endtext ""
 
-*image Designfiction.jpg
+*image Office.jpg
 
 It 's the beginning of a new year as you enter the doorsteps of the company you became familiar with the past few years. Crossing this particular doorstep on the first day of the year always seems to remind you of the first steps of your professional career. Already five years ago, you graduated from the art academy. Excited, you started your career as a(n) ...
 
@@ -174,6 +174,9 @@ If you would have had the opportunity to quit your study and go directly into bu
 		*goto application
 
 *label application
+
+*image JobInterview.jpg
+
 You were a bit nervous at your first job interview. Can you remember what you wore that day?
 *temp titel
 *choice
@@ -217,10 +220,25 @@ You were a bit nervous at your first job interview. Can you remember what you wo
 					Clearly, they were impressed! You were hired!
 					*gosub choicewoman
 					*goto first_years
-				#A traditional take on a woman's dress. It should be clear that I uphold traditional designer values. While I'm willing to experiment between boundaries
-					
-
-
+				#A traditional take on a woman's dress. It should be clear that I uphold traditional designer values. While I'm willing to experiment between boundaries, those boundaries should be set clear!
+					Clearly, they were impressed! You were hired!
+					*gosub choicewoman
+					*goto first_years
+				#Something completely different. A woman should dress to impress!
+					*gosub choicewoman
+					*goto first_years
+				#A completely new take on a man's dress. I'm a guy willing to make a statement!
+					Clearly, they were impressed! You were hired!
+					*gosub choiceman
+					*goto first_years
+				#A traditional take on a man's suit. It should be clear that I uphold traditional designer values. 
+					Clearly, they were impressed! You were hired!
+					*gosub choiceman
+					*goto first_years
+				#Something completely different. Not only a woman should dress to impress. Men have the same obligation!
+					*gosub choiceman
+					*goto first_years
+				
 *label first_years
 *temp introtext "In your first years, you started as a " & positie
 
@@ -264,6 +282,8 @@ ${introtext}
 *temp cmpname
 *input_text cmpname
 
+*temp goedecollega false
+
 As you enter your office, you still ponder about the past years and what they brought you. You were quite young back then, fresh from the academy and not as used to working at ${cmpname}. Naturally, you wanted to get a better in ${studie_richting}, but perhaps you had other thoughts about what work should be about. After all, as the saying goes, do you [i]work to live[/i] or rather [i]live to work[/i]? In other words, what was your focus during your first years?
 *choice
 	#Getting better at my job. If I am a better employee, I'll promote not matter what. I followed courses, even in my own time, just to get better.
@@ -284,7 +304,7 @@ As you enter your office, you still ponder about the past years and what they br
 		*line_break 
 		Then comes Sean, your boss. He seems quite focussed on his current game and doesn't pay much attention to the chitchat you are having with the other guests. 
 		*line_break 
-		Last, there is Giles Boung, CEO of Olivyg, one of last years winner of the Effies in advertising. A rather large business man who seems quite full of himself. A giant in advertising, but he esures you'll get your share of your own profession also. He can use all the creative minds he can get to satisfy his customers. 
+		Last, there is Ellen Boung, CEO of Olivyg, one of last years winner of the Effies in advertising. A rather large business man who seems quite full of himself. A giant in advertising, but he esures you'll get your share of your own profession also. He can use all the creative minds he can get to satisfy his customers. 
 		*line_break 
 		*line_break 
 		Over the course of the evening, you get to chat with all of the other guests and they seem to be more than politely interested in your work. If you are willing, you can choose to switch your career. 
@@ -308,16 +328,65 @@ As you enter your office, you still ponder about the past years and what they br
 				*set endtext "${endtext} You decided to change your occupation to a small socially responsible firm called Blue Creations. *linebreak"
 				*goto abc
 			*selectable_if(comptype = "small") #Jeff Slim is my man! A medium company would be perfect for me in my current career. The government can ensure a steady flow of work and I'll get social, juridical and organisational issues to design.
-				Steady as she goes... Jeff's handshake is welcome, but serious. It's clear this man wants to get the best out of you, which he'll also expect from you. [i]I hope you don't expect a 9 to 5 job...[/i], he laughs as you both walk to your vehicles after your poker night."
+				Steady as she goes... Jeff's handshake feels welcome, but serious. It's clear this man wants to get the best out of you, which he'll also expect from you. [i]\"I hope you don't expect a 9 to 5 job...\"[/i], he laughs as you both walk to your vehicles after your poker night.
 				*set comptype "mid"
 				*set cmpname "Rooklyn Industries"
 				*set endtext "${endtext} You decided to start working at a medium company called Rooklyn Industries, targeting governmental institutes. *linebreak"
 				*goto abc
-			*selectable_if(comptype != "big") #Let's go for the real job around here! While I have flourished in the short period I was working at ${cmpname}, I think I learned enough to deal with the big issues in my field of expertise. I opt for Giles Boung."
-				*set comptype "big"
-				*set cmpname "Olivyg"
-				*goto abc
+			*selectable_if(comptype != "big") #Let's go for the real job around here! While I have flourished in the short period I was working at ${cmpname}, I think I learned enough to deal with the big issues in my field of expertise. I opt for Ellen Boung.
+				*if geslacht="man"
+					Career is all that matters, isn't it? Hopefully the challenging job is also worth it, since Ellen Boung isn't just hiring you for nothing. She'll expect more than the best from you! [i]\"You'd better get your hands out of your pockets and start working, brother! You're desk is already full and I'll have your first ideas on my desk by tomorrow!\"[/i] 
+					. 
+					*line_break
+					. 
+					*line_break
+					Wow... did she just order you to get to the office now, as in before any contracts have been signed?
+					*set comptype "big"
+					*set cmpname "Olivyg"
+					*goto abc
+				*else
+					Career is all that matters, isn't it? Hopefully the challenging job is also worth it, since Ellen Boung isn't just hiring you for nothing. She'll expect more than the best from you! [i]\"You'd better get your hands out of your pockets and start working, sister! You're desk is already full and I'll have your first ideas on my desk by tomorrow!\"[/i]
+					. 
+					*line_break
+					. 
+					*line_break
+					Wow... did she just order you to get to the office now, as in before any contracts have been signed?
+					*set comptype "big"
+					*set cmpname "Olivyg"
+					*goto abc
+	#Socializing with my fellow colleagues. I don't make a distinction between my manager and my fellow co-workers.
+		Well, you certainly get to know them very well and, since your abilities are already well adapted to your work, you are respected as an employee. However, you didn't focus on your career as some others did. But perhaps knowing your your fellow co-workers well might just give you some knowledge about whom to consult for which problem...
+		*set career %-10
+		*set relatie_collega %+20
+		*set goedecollega true
+		*goto abc
+		
+*label specialassignment
 
+Because of the excellent work you delivered, Sean decides you may take some time to work on a project of your own interest. Naturally, this should be something you are able to excel in while still being something new. [i]" I still expect the best from you, of course. And if I say 'something new', I mean something which will help ${cmpname} in any way you can imagine. I hope you'll enjoy yourself with this. You do know I'm not giving such an opportunity to every guy or gal here, now do you? So I expect the very best from you. And it should be your creation... not just some copy cat of one of your colleagues. I know you can do it!."[/i]
+
+Did that just sound as a motivating speech?
+
+*fake_choice
+	#Not so much... Did he just suggest I'm a copy cat?
+	#Hell yeah, I'll show him!
+	#It doesn't matter. I'll have the opportunity to work on my favourite topic!
+
+Mmmm. 
+
+*temp kans 
+
+Anyhow, do you remember how you interpreted Sean's assignment? In what creative way did you try to help ${cmpname} forward? Note that, while you may try something that is completely outside of your comfort zone, the risk you have of failing will be higher, but the rewards will be bigger.
+
+*label typeproject
+*choice
+	#I chose to do a design fiction project. I envisioned ${cmpname} as it would be developed in the coming years if we would continue our current methodology as I see it.
+		Interesting choice. And on which particular characteristic of the company did you place your emphasis?
+		*choice
+			*hide_reuse #None in particular. I just thought about how I would experience my company.
+				That sounds a bit at odd with the principles of design fiction, now doesn't it? After all, design fiction seems to be a form of hyperbolic criticism, which requires you to emphasize that which you would like to criticise. In that sense, it works more or less like a magnifying glass, which, in your case, doesn't seem to be looking at any spot at all. 
+				*set design_fiction design_fiction - 1
+				*set df_usage "While willing to use design fiction in your special assignment, you fail to recognize design fiction as a critique on the 
 
 *label abc 
 				
